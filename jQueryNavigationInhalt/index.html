@@ -1,0 +1,87 @@
+<!-- Einfache Navigation mit JavaScript (Externe .html Datei in div-Box laden) 
+	http://www.xn--fundstcke-im-netz-72b.de/2013/10/24/javascript-navigation/
+	(c) 2013 Kevin B. http://www.xn--fundstcke-im-netz-72b.de
+-->
+<!doctype html>
+<html lang="de">
+<head>
+	<meta charset="UTF-8">
+	<title>Navigation mit JavaScript</title>
+	<style type="text/css">
+		.main{
+			width: 800px;
+			background-color: #ecf0f1;
+			margin: 0 auto;
+			padding: 5px;
+		}
+
+		nav{
+			background-color: #27ae60;
+		}
+
+		.fn-nav li {
+			display: inline;
+			padding: 3px;
+			margin-left: 5px;
+		}
+
+		.fn-nav li:hover {
+			background-color: #2ecc71;
+		}
+
+		.fn-nav li a:hover {
+			text-decoration: none;
+		}
+
+		.fn-nav li a{
+			text-decoration: none;
+			color: #34495e;
+		}
+
+		.content {
+			border-top: 1px dashed #95a5a6;
+			padding: 5px;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<nav>
+			<ul class="fn-nav">
+				<li><a data-site="home" href="#">Home</a></li>
+				<li><a data-site="termine" href="#">Termine</a></li>
+				<li><a data-site="infos" href="#">Informationen</a></li>
+			</ul>
+		</nav>
+		<div class="content">
+			<!-- Hier wird später der Inhalt stehen -->
+		</div>
+	</div>
+	<!-- Hier kommt JavaScript hin. -->
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript">
+		// Erst starten wenn das Dokument fertig geladen ist.
+		$(document).ready(function(){ 
+			// Beim ersten Laden muss eine Seite geladen werden.
+			$(".content").load("home.html");
+
+
+			// WENN auf einen Link innerhalb von .fn-nav geklickt wurde, DANN führe diese Funktion aus.
+			$('.fn-nav a').click(function(e){
+				// Verhindert, dass der Browser die Seite beim Klick auf einen Link neulädt.
+				e.preventDefault(); 
+
+				// Speichert den Inhalt des Attributes in der Variablen site.
+				var site = $(this).data('site'); 
+
+				// .html an den Namen anhängen.
+				site = site + '.html'; 
+				
+				// Seite laden und in .content einsetzen.
+				$(".content").load(site); 
+			});
+		});
+	</script>
+
+</body>
+</html>
